@@ -6,6 +6,8 @@ import com.youlai.boot.devenv.mapper.GoodsMapper;
 import com.youlai.boot.devenv.mapper.OrderMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Tag(name = "12. 商品接口")
 @RestController
 @RequestMapping("/api/shopping/goods")
 public class GoodsController {
@@ -25,6 +28,7 @@ public class GoodsController {
     private OrderMapper orderMapper;
 
     // 创建商品
+    @Operation(summary = "商品创建")
     @PostMapping
     public Map<String, Object> createGoods(@RequestBody Goods goods) {
         Map<String, Object> result = new HashMap<>();
@@ -46,6 +50,7 @@ public class GoodsController {
     }
 
     // 根据ID查询商品
+    @Operation(summary = "根据ID查询商品")
     @GetMapping("/{id}")
     public Map<String, Object> getGoodsById(@PathVariable String id) {
         Map<String, Object> result = new HashMap<>();
@@ -66,6 +71,7 @@ public class GoodsController {
     }
 
     // 根据ID, 查询订单
+    @Operation(summary = "根据商品ID查询所有订单")
     @GetMapping("/{id}/orders")
     public Map<String, Object> getOrdersById(@PathVariable String id) {
         Map<String, Object> result = new HashMap<>();

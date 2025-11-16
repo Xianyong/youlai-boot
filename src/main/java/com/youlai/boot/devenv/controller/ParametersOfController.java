@@ -1,5 +1,6 @@
 package com.youlai.boot.devenv.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Map;
 
 import com.youlai.boot.devenv.entity.ShopUser;
 
+@Tag(name = "参数测试接口")
 @RestController
 @RequestMapping("/api/shopping/parameters")
 public class ParametersOfController {

@@ -160,6 +160,7 @@ springdoc:
         - com.youlai.boot.system.controller
         - com.youlai.boot.platform.file.controller
         - com.youlai.boot.platform.codegen.controller
+        - com.youlai.boot.devenv.controller
   default-flat-param-object: true
 
 # knife4j 接口文档配置

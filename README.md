@@ -257,3 +257,5 @@ COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB
 ;
 
+## knife4j Reference
+https://doc.xiaominfo.com/docs/quick-start
