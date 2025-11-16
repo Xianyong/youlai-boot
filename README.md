@@ -211,3 +211,49 @@ ke.global.setAllHeader("Authorization", "Bearer " + token);
 // 如果需要，也可以同时设置为Query参数
 // ke.global.setAllParameter("token", token);
 }
+
+## DB
+USE youlai_boot;
+
+CREATE TABLE `t_goods` (
+`id` CHAR(36) NOT NULL COMMENT '商品ID' COLLATE 'utf8mb4_unicode_ci',
+`category` VARCHAR(10) NOT NULL DEFAULT '' COMMENT '商品类别（家电、食品、日用）' COLLATE 'utf8mb4_unicode_ci',
+`name` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '名称' COLLATE 'utf8mb4_unicode_ci',
+`made_address` VARCHAR(20) NOT NULL DEFAULT '' COMMENT '产地' COLLATE 'utf8mb4_unicode_ci',
+`price` FLOAT NOT NULL DEFAULT '0' COMMENT '单价',
+PRIMARY KEY (`id`) USING BTREE
+)
+COMMENT='临时商品表'
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+;
+
+
+CREATE TABLE `t_user` (
+`id` CHAR(36) NOT NULL DEFAULT (uuid()) COMMENT '用户ID' COLLATE 'utf8mb4_unicode_ci',
+`username` VARCHAR(16) NOT NULL DEFAULT '' COMMENT '姓名' COLLATE 'utf8mb4_unicode_ci',
+`password` VARCHAR(16) NOT NULL DEFAULT 'abc' COMMENT '密码' COLLATE 'utf8mb4_unicode_ci',
+`birthday` DATETIME NOT NULL DEFAULT '1900-01-01 00:00:00' COMMENT '生日',
+PRIMARY KEY (`id`) USING BTREE
+)
+COMMENT='临时用户表'
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+;
+
+
+CREATE TABLE `t_order` (
+`id` CHAR(36) NOT NULL DEFAULT (uuid()) COMMENT '订单ID' COLLATE 'utf8mb4_unicode_ci',
+`goods_id` CHAR(36) NOT NULL DEFAULT '' COMMENT '商品ID' COLLATE 'utf8mb4_unicode_ci',
+`order_time` DATETIME NOT NULL DEFAULT (now()) COMMENT '订单日期时间',
+`total` INT NOT NULL DEFAULT '0' COMMENT '数量',
+`uid` VARCHAR(36) NOT NULL DEFAULT (uuid()) COMMENT 'UserID' COLLATE 'utf8mb4_unicode_ci',
+PRIMARY KEY (`id`) USING BTREE,
+INDEX `FK_uid` (`uid`) USING BTREE,
+CONSTRAINT `FK_uid` FOREIGN KEY (`uid`) REFERENCES `t_user` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+COMMENT='临时订单表'
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+;
+
