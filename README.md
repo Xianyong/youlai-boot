@@ -198,3 +198,16 @@ Thanks to all the contributors!
 ② 直接添加微信 **`haoxianrui`** 备注「前端/后端/全栈」。
 
 ![有来技术公众号](https://foruda.gitee.com/images/1737108820762592766/3390ed0d_716974.png)  
+
+## 如何调试代码
+
+// 假设登录成功返回的JSON格式为：{"code": 200, "data": {"token": "xxx"}}
+var code = ke.response.data.code;
+if(code == "00000") { // 判断登录成功
+// 从响应体中找到 token
+var token = ke.response.data.data.accessToken;
+// 设置为全局请求头，参数名根据你的项目要求可能是 "token" 或 "Authorization"
+ke.global.setAllHeader("Authorization", "Bearer " + token);
+// 如果需要，也可以同时设置为Query参数
+// ke.global.setAllParameter("token", token);
+}
