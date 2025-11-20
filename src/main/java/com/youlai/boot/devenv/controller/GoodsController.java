@@ -1,5 +1,6 @@
 package com.youlai.boot.devenv.controller;
 
+import com.youlai.boot.core.web.Result;
 import com.youlai.boot.devenv.entity.Goods;
 import com.youlai.boot.devenv.entity.Order;
 import com.youlai.boot.devenv.mapper.GoodsMapper;
@@ -36,15 +37,15 @@ public class GoodsController {
             int rows = goodsMapper.insert(goods);
             if (rows > 0) {
                 result.put("success", true);
-                result.put("message", "商品创建成功");
+                result.put("msg", "商品创建成功");
                 result.put("data", goods);
             } else {
                 result.put("success", false);
-                result.put("message", "商品创建失败");
+                result.put("msg", "商品创建失败");
             }
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "创建商品时发生错误: " + e.getMessage());
+            result.put("msg", "创建商品时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -61,11 +62,11 @@ public class GoodsController {
                 result.put("data", goods);
             } else {
                 result.put("success", false);
-                result.put("message", "商品不存在");
+                result.put("msg", "商品不存在");
             }
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "查询商品时发生错误: " + e.getMessage());
+            result.put("msg", "查询商品时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -85,15 +86,15 @@ public class GoodsController {
                 }
                 else{
                     result.put("success", false);
-                    result.put("message", "订单不存在");
+                    result.put("msg", "订单不存在");
                 }
             } else {
                 result.put("success", false);
-                result.put("message", "商品不存在");
+                result.put("msg", "商品不存在");
             }
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "查询订单时发生错误: " + e.getMessage());
+            result.put("msg", "查询订单时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -109,7 +110,7 @@ public class GoodsController {
             result.put("total", goodsList.size());
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "查询商品列表时发生错误: " + e.getMessage());
+            result.put("msg", "查询商品列表时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -123,9 +124,10 @@ public class GoodsController {
             result.put("success", true);
             result.put("data", goodsList);
             result.put("total", goodsList.size());
+
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "查询商品列表时发生错误: " + e.getMessage());
+            result.put("msg", "查询商品列表时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -146,7 +148,7 @@ public class GoodsController {
             result.put("current", page.getCurrent());
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "分页查询商品时发生错误: " + e.getMessage());
+            result.put("msg", "分页查询商品时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -163,7 +165,7 @@ public class GoodsController {
             result.put("data", goodsList);
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "根据分类查询商品时发生错误: " + e.getMessage());
+            result.put("msg", "根据分类查询商品时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -182,7 +184,7 @@ public class GoodsController {
             result.put("data", goodsList);
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "根据价格范围查询商品时发生错误: " + e.getMessage());
+            result.put("msg", "根据价格范围查询商品时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -196,15 +198,15 @@ public class GoodsController {
             int rows = goodsMapper.updateById(goods);
             if (rows > 0) {
                 result.put("success", true);
-                result.put("message", "商品更新成功");
+                result.put("msg", "商品更新成功");
                 result.put("data", goodsMapper.selectById(id));
             } else {
                 result.put("success", false);
-                result.put("message", "商品不存在或更新失败");
+                result.put("msg", "商品不存在或更新失败");
             }
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "更新商品时发生错误: " + e.getMessage());
+            result.put("msg", "更新商品时发生错误: " + e.getMessage());
         }
         return result;
     }
@@ -217,14 +219,14 @@ public class GoodsController {
             int rows = goodsMapper.deleteById(id);
             if (rows > 0) {
                 result.put("success", true);
-                result.put("message", "商品删除成功");
+                result.put("msg", "商品删除成功");
             } else {
                 result.put("success", false);
-                result.put("message", "商品不存在或删除失败");
+                result.put("msg", "商品不存在或删除失败");
             }
         } catch (Exception e) {
             result.put("success", false);
-            result.put("message", "删除商品时发生错误: " + e.getMessage());
+            result.put("msg", "删除商品时发生错误: " + e.getMessage());
         }
         return result;
     }
