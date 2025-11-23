@@ -52,20 +52,13 @@ public class BizProducts extends BaseEntity {
      * 商品预览图片的存储路径或URL
      */
     private String imagePreview;
-    /**
-     * 记录创建时间
-     */
-    private LocalDateTime createdTime;
-    /**
-     * 记录最后更新时间
-     */
-    private LocalDateTime updatedTime;
+
     /**
      * 记录创建人
      */
-    private Long createdBy;
+    private Long createBy;
     /**
      * 记录最后修改人
      */
-    private Long updatedBy;
+    private Long updateBy;
 }

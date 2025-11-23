@@ -14,13 +14,18 @@
                 unit_price,
                 description,
                 image_preview,
-                created_time,
-                updated_time,
-                created_by,
-                updated_by
+                create_time,
+                update_time,
+                create_by,
+                update_by
         FROM
-            biz_products
+            biz_products p
         <where>
+            <if test='queryParams.name!=null and queryParams.name.trim() neq ""'>
+                (
+                p.name LIKE CONCAT('%',#{queryParams.name},'%')
+                )
+            </if>
         </where>
     </select>
 

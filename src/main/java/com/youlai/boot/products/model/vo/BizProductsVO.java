@@ -42,11 +42,11 @@ public class BizProductsVO implements Serializable {
     @Schema(description = "商品预览图片的存储路径或URL")
     private String imagePreview;
     @Schema(description = "记录创建时间")
-    private LocalDateTime createdTime;
+    private LocalDateTime createTime;
     @Schema(description = "记录最后更新时间")
-    private LocalDateTime updatedTime;
+    private LocalDateTime updateTime;
     @Schema(description = "记录创建人")
-    private Long createdBy;
+    private Long createBy;
     @Schema(description = "记录最后修改人")
-    private Long updatedBy;
+    private Long updateBy;
 }

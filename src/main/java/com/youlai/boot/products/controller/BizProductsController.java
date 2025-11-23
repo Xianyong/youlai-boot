@@ -18,6 +18,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.io.Console;
+
 /**
  * 商品供应前端控制层
  *
@@ -36,6 +38,7 @@ public class BizProductsController  {
     @GetMapping("/page")
     @PreAuthorize("@ss.hasPerm('products:biz-products:query')")
     public PageResult<BizProductsVO> getBizProductsPage(BizProductsQuery queryParams ) {
+//        println("queryParams = " + queryParams);
         IPage<BizProductsVO> result = bizProductsService.getBizProductsPage(queryParams);
         return PageResult.success(result);
     }

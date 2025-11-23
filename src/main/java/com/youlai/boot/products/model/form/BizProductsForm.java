@@ -26,7 +26,7 @@ public class BizProductsForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "商品唯一标识符")
-    @NotNull(message = "商品唯一标识符不能为空")
+//    @NotNull(message = "商品唯一标识符不能为空")
     private Long id;
 
     @Schema(description = "商品名称（如：XX品牌 18.9L 桶装纯净水）")
@@ -65,20 +65,20 @@ public class BizProductsForm implements Serializable {
     private String imagePreview;
 
     @Schema(description = "记录创建时间")
-    @NotNull(message = "记录创建时间不能为空")
+//    @NotNull(message = "记录创建时间不能为空")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createdTime;
+    private LocalDateTime createTime;
 
     @Schema(description = "记录最后更新时间")
-    @NotNull(message = "记录最后更新时间不能为空")
+//    @NotNull(message = "记录最后更新时间不能为空")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedTime;
+    private LocalDateTime updateTime;
 
     @Schema(description = "记录创建人")
-    private Long createdBy;
+    private Long createBy;
 
     @Schema(description = "记录最后修改人")
-    private Long updatedBy;
+    private Long updateBy;
 
 
 }

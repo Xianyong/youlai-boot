@@ -18,5 +18,6 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class BizProductsQuery extends BasePageQuery {
-
+    @Schema(description="关键字(商品名称)")
+    private String name;
 }
