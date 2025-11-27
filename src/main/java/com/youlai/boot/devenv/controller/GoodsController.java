@@ -50,6 +50,25 @@ public class GoodsController {
         return result;
     }
 
+    // 根据商品名称模糊查询
+    @Operation(summary = "根据商品名称模糊查询")
+    @GetMapping("/search")
+    public Map<String, Object> searchGoodsByName(@RequestParam String name) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            QueryWrapper<Goods> queryWrapper = new QueryWrapper<>();
+            queryWrapper.like("name", name);
+            List<Goods> goodsList = goodsMapper.selectList(queryWrapper);
+            result.put("success", true);
+            result.put("data", goodsList);
+            result.put("total", goodsList.size());
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("msg", "根据名称模糊查询商品时发生错误: " + e.getMessage());
+        }
+        return result;
+    }
+
     // 根据ID查询商品
     @Operation(summary = "根据ID查询商品")
     @GetMapping("/{id}")

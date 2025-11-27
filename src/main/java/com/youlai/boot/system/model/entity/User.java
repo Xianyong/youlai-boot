@@ -1,9 +1,14 @@
 package com.youlai.boot.system.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.youlai.boot.common.base.BaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 用户实体
@@ -77,4 +82,10 @@ public class User extends BaseEntity {
      * 微信 OpenID
      */
     private String openid;
+
+    private BigDecimal remaining_sum;
+
+    private LocalDateTime latest_consume_time;
+
+    private BigDecimal latest_consume_cost;
 }

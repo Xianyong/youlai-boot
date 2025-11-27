@@ -235,6 +235,9 @@
             u.avatar,
             u.STATUS,
             u.email,
+            u.remaining_sum,
+            u.latest_consume_time,
+            u.latest_consume_cost,
             d.NAME AS deptName,
             GROUP_CONCAT(r.NAME) AS roleNames,
             u.create_time

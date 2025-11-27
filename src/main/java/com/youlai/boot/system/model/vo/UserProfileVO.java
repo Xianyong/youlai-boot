@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -46,5 +48,15 @@ public class UserProfileVO {
     @Schema(description = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
+
+    @Schema(description = "账号余额")
+    private BigDecimal remainingSum;
+
+    @Schema(description = "最近消费日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime latestConsumeTime;
+
+    @Schema(description = "最近消费金额")
+    private BigDecimal latestConsumeCost;
 
 }

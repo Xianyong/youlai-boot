@@ -1,7 +1,9 @@
 package com.youlai.boot.system.model.bo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +14,6 @@ import java.time.LocalDateTime;
  */
 @Data
 public class UserBO {
-
     /**
      * 用户ID
      */
@@ -67,4 +68,19 @@ public class UserBO {
      * 创建时间
      */
     private LocalDateTime createTime;
+
+    /**
+     * 账号余额
+     */
+    private BigDecimal remainingSum;
+
+    /**
+     * 最近消费日期
+     */
+    private LocalDateTime latestConsumeTime;
+
+    /**
+     * 最近消费金额
+     */
+    private BigDecimal latestConsumeCost;
 }
