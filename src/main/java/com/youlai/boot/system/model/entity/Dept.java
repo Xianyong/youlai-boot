@@ -2,8 +2,12 @@ package com.youlai.boot.system.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.youlai.boot.common.base.BaseEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.poi.hpsf.Decimal;
+
+import java.math.BigDecimal;
 
 /**
  * 部门实体对象
@@ -61,4 +65,18 @@ public class Dept extends BaseEntity {
      */
     private Integer isDeleted;
 
+    /**
+     * 站点地址
+     */
+    private String dptAddress;
+
+    /**
+     * 站点类型
+     */
+    private Integer dptType;
+
+    /**
+     * 销售提成比例 0-100
+     */
+    private BigDecimal dptSaleRate;
 }

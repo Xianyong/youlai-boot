@@ -4,6 +4,7 @@ import com.youlai.boot.system.model.entity.Dept;
 import com.youlai.boot.system.model.vo.DeptVO;
 import com.youlai.boot.system.model.form.DeptForm;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 /**
  * 部门对象转换器
@@ -15,7 +16,8 @@ import org.mapstruct.Mapper;
 public interface DeptConverter {
 
     DeptForm toForm(Dept entity);
-    
+
+//    @Mapping(source = "dptAddress", target = "dptAddress")
     DeptVO toVo(Dept entity);
 
     Dept toEntity(DeptForm deptForm);

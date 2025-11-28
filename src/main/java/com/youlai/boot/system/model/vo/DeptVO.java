@@ -3,7 +3,9 @@ package com.youlai.boot.system.model.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.apache.poi.hpsf.Decimal;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -35,8 +37,17 @@ public class DeptVO {
     @Schema(description = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createTime;
+
     @Schema(description = "修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime updateTime;
 
+    @Schema(description = "站点地址")
+    private String dptAddress;
+
+    @Schema(description = "站点类型")
+    private Integer dptType;
+
+    @Schema(description = "销售提成比例 0-100")
+    private BigDecimal dptSaleRate;
 }
