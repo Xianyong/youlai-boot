@@ -23,12 +23,16 @@ public interface DeptService extends IService<Dept> {
      */
     List<DeptVO> getDeptList(DeptQuery queryParams);
 
+    public List<DeptVO> getMyDeptList(DeptQuery queryParams);
+
     /**
      * 部门树形下拉选项
      *
      * @return 部门树形下拉选项
      */
     List<Option<Long>> listDeptOptions();
+
+    List<Option<Long>> listMyDeptOptions();
 
     /**
      * 新增部门

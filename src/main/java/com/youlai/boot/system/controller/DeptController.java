@@ -33,9 +33,19 @@ public class DeptController {
 
     private final DeptService deptService;
 
-    @Operation(summary = "部门列表")
+    @Operation(summary = "个人管理站点列表")
+    @GetMapping(value = "/me")
+    @Log( value = "个人管理站点列表",module = LogModuleEnum.DEPT)
+    public Result<List<DeptVO>> getMyDeptList(
+            DeptQuery queryParams
+    ) {
+        List<DeptVO> list = deptService.getMyDeptList(queryParams);
+        return Result.success(list);
+    }
+
+    @Operation(summary = "站点列表")
     @GetMapping
-    @Log( value = "部门列表",module = LogModuleEnum.DEPT)
+    @Log( value = "站点列表",module = LogModuleEnum.DEPT)
     public Result<List<DeptVO>> getDeptList(
              DeptQuery queryParams
     ) {
@@ -43,14 +53,21 @@ public class DeptController {
         return Result.success(list);
     }
 
-    @Operation(summary = "部门下拉列表")
+    @Operation(summary = "个人管理站点下拉列表")
+    @GetMapping("/options/me")
+    public Result<List<Option<Long>>> getMyDeptOptions() {
+        List<Option<Long>> list = deptService.listMyDeptOptions();
+        return Result.success(list);
+    }
+
+    @Operation(summary = "站点下拉列表")
     @GetMapping("/options")
     public Result<List<Option<Long>>> getDeptOptions() {
         List<Option<Long>> list = deptService.listDeptOptions();
         return Result.success(list);
     }
 
-    @Operation(summary = "新增部门")
+    @Operation(summary = "新增站点")
     @PostMapping
     @PreAuthorize("@ss.hasPerm('sys:dept:add')")
     @RepeatSubmit
@@ -61,7 +78,7 @@ public class DeptController {
         return Result.success(id);
     }
 
-    @Operation(summary = "获取部门表单数据")
+    @Operation(summary = "获取站点表单数据")
     @GetMapping("/{deptId}/form")
     public Result<DeptForm> getDeptForm(
             @Parameter(description ="部门ID") @PathVariable Long deptId
@@ -70,7 +87,7 @@ public class DeptController {
         return Result.success(deptForm);
     }
 
-    @Operation(summary = "修改部门")
+    @Operation(summary = "修改站点")
     @PutMapping(value = "/{deptId}")
     @PreAuthorize("@ss.hasPerm('sys:dept:edit')")
     public Result<?> updateDept(
@@ -81,7 +98,7 @@ public class DeptController {
         return Result.success(deptId);
     }
 
-    @Operation(summary = "删除部门")
+    @Operation(summary = "删除站点")
     @DeleteMapping("/{ids}")
     @PreAuthorize("@ss.hasPerm('sys:dept:delete')")
     public Result<?> deleteDepartments(

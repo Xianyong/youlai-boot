@@ -38,6 +38,37 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
 
     private final DeptConverter deptConverter;
 
+
+    /**
+     * 获取用户管理的部门列表
+     */
+    @Override
+    public List<DeptVO> getMyDeptList(DeptQuery queryParams) {
+        // 查询参数
+        String keywords = queryParams.getKeywords();
+        Integer status = queryParams.getStatus();
+        Long deptId = SecurityUtils.getDeptId();
+
+        // 查询数据
+        List<Dept> deptList = this.list(
+                new LambdaQueryWrapper<Dept>()
+                        .like(StrUtil.isNotBlank(keywords), Dept::getName, keywords)
+                        .eq(status != null, Dept::getStatus, status)
+                        .orderByAsc(Dept::getSort)
+        );
+
+        if (CollectionUtil.isEmpty(deptList)) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<Long> Ids = Collections.singletonList(deptId);
+
+        // 递归生成部门树形列表
+        return Ids.stream()
+                .flatMap(mydepId -> recurMyDeptList(mydepId, deptList).stream())
+                .toList();
+    }
+
     /**
      * 获取部门列表
      */
@@ -92,6 +123,38 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
                     deptVO.setChildren(children);
                     return deptVO;
                 }).toList();
+    }
+
+    public List<DeptVO> recurMyDeptList(Long deptId, List<Dept> deptList) {
+        return deptList.stream()
+                .filter(dept -> dept.getId().equals(deptId))
+                .map(dept -> {
+                    DeptVO deptVO = deptConverter.toVo(dept);
+                    List<DeptVO> children = recurDeptList(dept.getId(), deptList);
+                    deptVO.setChildren(children);
+                    return deptVO;
+                }).toList();
+    }
+    @Override
+    public List<Option<Long>> listMyDeptOptions() {
+
+        Long deptId = SecurityUtils.getDeptId();
+
+        List<Dept> deptList = this.list(new LambdaQueryWrapper<Dept>()
+                .eq(Dept::getStatus, StatusEnum.ENABLE.getValue())
+                .select(Dept::getId, Dept::getParentId, Dept::getName)
+                .orderByAsc(Dept::getSort)
+        );
+        if (CollectionUtil.isEmpty(deptList)) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<Long> Ids = Collections.singletonList(deptId);
+
+        // 递归生成部门树形列表
+        return Ids.stream()
+                .flatMap(myId -> recurMyDeptTreeOptions(myId, deptList).stream())
+                .toList();
     }
 
     /**
@@ -214,6 +277,20 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     public static List<Option<Long>> recurDeptTreeOptions(long parentId, List<Dept> deptList) {
         return CollectionUtil.emptyIfNull(deptList).stream()
                 .filter(dept -> dept.getParentId().equals(parentId))
+                .map(dept -> {
+                    Option<Long> option = new Option<>(dept.getId(), dept.getName());
+                    List<Option<Long>> children = recurDeptTreeOptions(dept.getId(), deptList);
+                    if (CollectionUtil.isNotEmpty(children)) {
+                        option.setChildren(children);
+                    }
+                    return option;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public static List<Option<Long>> recurMyDeptTreeOptions(long dptId, List<Dept> deptList) {
+        return CollectionUtil.emptyIfNull(deptList).stream()
+                .filter(dept -> dept.getId().equals(dptId))
                 .map(dept -> {
                     Option<Long> option = new Option<>(dept.getId(), dept.getName());
                     List<Option<Long>> children = recurDeptTreeOptions(dept.getId(), deptList);
