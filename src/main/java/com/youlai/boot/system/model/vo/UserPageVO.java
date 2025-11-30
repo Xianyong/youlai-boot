@@ -19,6 +19,9 @@ public class UserPageVO {
     @Schema(description="用户ID")
     private Long id;
 
+    @Schema(description="站点ID")
+    private Long deptId;
+
     @Schema(description="用户名")
     private String username;
 

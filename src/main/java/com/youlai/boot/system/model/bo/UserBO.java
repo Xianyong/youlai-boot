@@ -20,6 +20,11 @@ public class UserBO {
     private Long id;
 
     /**
+     * 站点ID
+     */
+    private Long deptId;
+
+    /**
      * 账户名
      */
     private String username;

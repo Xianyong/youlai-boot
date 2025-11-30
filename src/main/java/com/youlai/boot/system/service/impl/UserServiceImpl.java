@@ -440,7 +440,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                         User::getId,
                         User::getUsername,
                         User::getNickname,
-                        User::getAvatar
+                        User::getAvatar,
+                        User::getDeptId
                 )
         );
         // entity->VO

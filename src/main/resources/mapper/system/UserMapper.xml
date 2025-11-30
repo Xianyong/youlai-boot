@@ -10,6 +10,7 @@
             u.id,
             u.username,
             u.nickname,
+            u.dept_id,
             u.mobile,
             u.gender,
             u.avatar,
