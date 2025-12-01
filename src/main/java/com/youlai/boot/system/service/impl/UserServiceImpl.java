@@ -132,7 +132,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String defaultEncryptPwd = passwordEncoder.encode(SystemConstants.DEFAULT_PASSWORD);
         entity.setPassword(defaultEncryptPwd);
         entity.setCreateBy(SecurityUtils.getUserId());
-
+        entity.setUpdateBy(SecurityUtils.getUserId());
         // 新增用户
         boolean result = this.save(entity);
 

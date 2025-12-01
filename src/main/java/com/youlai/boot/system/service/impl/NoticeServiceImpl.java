@@ -99,6 +99,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         }
         Notice entity = noticeConverter.toEntity(formData);
         entity.setCreateBy(SecurityUtils.getUserId());
+        entity.setUpdateBy(SecurityUtils.getUserId());
         return this.save(entity);
     }
 

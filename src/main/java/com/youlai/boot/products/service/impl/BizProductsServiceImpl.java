@@ -1,5 +1,6 @@
 package com.youlai.boot.products.service.impl;
 
+import com.youlai.boot.security.util.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -68,6 +69,9 @@ public class BizProductsServiceImpl extends ServiceImpl<BizProductsMapper, BizPr
     @Override
     public boolean saveBizProducts(BizProductsForm formData) {
         BizProducts entity = bizProductsConverter.toEntity(formData);
+        entity.setCreateBy(SecurityUtils.getUserId());
+        entity.setUpdateBy(SecurityUtils.getUserId());
+
         return this.save(entity);
     }
     
@@ -81,6 +85,7 @@ public class BizProductsServiceImpl extends ServiceImpl<BizProductsMapper, BizPr
     @Override
     public boolean updateBizProducts(Long id,BizProductsForm formData) {
         BizProducts entity = bizProductsConverter.toEntity(formData);
+        entity.setUpdateBy(SecurityUtils.getUserId());
         return this.updateById(entity);
     }
     

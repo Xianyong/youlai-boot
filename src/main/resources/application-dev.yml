@@ -100,7 +100,8 @@ security:
 # 文件存储配置
 oss:
   # OSS 类型 (目前支持aliyun、minio、local)
-  type: minio
+#  type: minio
+  type: local
   # MinIO 对象存储服务
   minio:
     # MinIO 服务地址
@@ -126,7 +127,8 @@ oss:
   # 本地存储
   local:
     # 文件存储路径 请注意下，mac用户请使用 /Users/your-username/your-path/，否则会有权限问题，windows用户请使用 D:/your-path/
-    storage-path: /Users/theo/home/
+    storage-path: D:/GZIST/Teaching/lectures/Demo/upload
+    file-url-prefix: /upload
 # 短信配置
 sms:
   # 阿里云短信

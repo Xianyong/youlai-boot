@@ -12,12 +12,14 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.math.BigInteger;
@@ -36,8 +38,20 @@ import java.util.TimeZone;
 @Configuration
 @Slf4j
 public class WebMvcConfig implements WebMvcConfigurer {
-
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    @Value("${oss.local.storage-path}")
+    private String localFilePath;
+
+    @Value("${oss.local.file-url-prefix}")
+    private String localFileUrlPrefix;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 访问 /upload/** 路径时，映射到本地 /data/upload/ 目录
+        registry.addResourceHandler(localFileUrlPrefix + "/**")
+                .addResourceLocations("file:" + localFilePath + "/");
+    }
 
     /**
      * 配置消息转换器

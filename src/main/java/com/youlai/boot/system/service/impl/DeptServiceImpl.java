@@ -213,6 +213,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         entity.setTreePath(treePath);
 
         entity.setCreateBy(SecurityUtils.getUserId());
+        entity.setUpdateBy(SecurityUtils.getUserId());
         // 保存部门并返回部门ID
         boolean result = this.save(entity);
         Assert.isTrue(result, "部门保存失败");
@@ -254,6 +255,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
 
         // form->entity
         Dept entity = deptConverter.toEntity(formData);
+        entity.setUpdateBy(SecurityUtils.getUserId());
         entity.setId(deptId);
 
         // 生成部门路径(tree_path)，格式：父节点tree_path + , + 父节点ID，用于删除部门时级联删除子部门

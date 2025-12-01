@@ -69,7 +69,6 @@ public class LocalFileService implements FileService {
         return fileInfo;
     }
 
-
     /**
      * 删除文件
      * @param filePath 文件完整URL
