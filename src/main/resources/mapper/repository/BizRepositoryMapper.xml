@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youlai.boot.repository.mapper.BizRepositoryMapper">
+
+    <!-- 获取商品选购分页列表 -->
+    <select id="getBizRepositoryPage" resultType="com.youlai.boot.repository.model.vo.BizRepositoryVO">
+        SELECT
+            rep.id,
+            rep.department_id,
+            dep.name AS department_name,
+            rep.product_id,
+            pro.name AS product_name,
+            rep.current_quantity,
+            rep.order_quantity_total,
+            rep.order_date_latest,
+            rep.create_time,
+            rep.update_time,
+            rep.create_by,
+            rep.update_by
+        FROM
+            biz_repository rep
+        left join sys_dept dep on rep.department_id = dep.id
+        left join biz_products pro on rep.product_id = pro.id
+        <if test='queryParams.deptIds != null'>
+            WHERE rep.department_id IN
+            <foreach item="item" index="index" collection="queryParams.deptIds"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youlai.boot.orders.mapper.BizOrdersMapper">
+
+    <!-- 获取订单分页列表 -->
+    <select id="getBizOrdersPage" resultType="com.youlai.boot.orders.model.vo.BizOrdersVO">
+        SELECT
+                id,
+                repo_id,
+                user_id,
+                quantity,
+                unit_price,
+                total_amount,
+                order_date,
+                create_by,
+                create_time,
+                update_by,
+                update_time
+        FROM
+            biz_orders
+        <where>
+        </where>
+    </select>
+
+</mapper>
