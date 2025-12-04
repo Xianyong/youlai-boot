@@ -72,7 +72,7 @@ public class BizOrdersController  {
 
     @Operation(summary = "购物订单")
     @PostMapping(value="/buy")
-    @PreAuthorize("@ss.hasPerm('orders:biz-orders:add')")
+    @PreAuthorize("@ss.hasPerm('repository:biz-repository:buy')")
     public Result<Void> buyBizOrders(@RequestBody @Valid BizOrdersForm formData ) {
         CurrentUserDTO currentUserDTO = userService.getCurrentUserInfo();
         formData.setUserId(currentUserDTO.getUserId());
