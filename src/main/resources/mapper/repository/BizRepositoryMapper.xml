@@ -10,6 +10,7 @@
             dep.name AS department_name,
             rep.product_id,
             pro.name AS product_name,
+            pro.unit_price AS product_unit_price,
             rep.current_quantity,
             rep.order_quantity_total,
             rep.order_date_latest,

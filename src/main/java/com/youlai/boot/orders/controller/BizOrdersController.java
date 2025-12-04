@@ -24,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,18 @@ public class BizOrdersController  {
 
         IPage<BizOrdersVO> result = bizOrdersService.getBizOrdersPage(queryParams);
         return PageResult.success(result);
+    }
+
+    @Operation(summary = "购物订单")
+    @PostMapping(value="/buy")
+    @PreAuthorize("@ss.hasPerm('orders:biz-orders:add')")
+    public Result<Void> buyBizOrders(@RequestBody @Valid BizOrdersForm formData ) {
+        CurrentUserDTO currentUserDTO = userService.getCurrentUserInfo();
+        formData.setUserId(currentUserDTO.getUserId());
+        formData.setCreateBy(currentUserDTO.getUserId());
+        formData.setOrderDate(LocalDateTime.now());
+        boolean result = bizOrdersService.saveBizOrders(formData);
+        return Result.judge(result);
     }
 
     @Operation(summary = "新增订单")

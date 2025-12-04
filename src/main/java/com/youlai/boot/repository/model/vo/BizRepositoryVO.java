@@ -2,10 +2,13 @@ package com.youlai.boot.repository.model.vo;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.poi.hpsf.Decimal;
+
 import java.time.LocalDateTime;
 
 /**
@@ -32,6 +35,8 @@ public class BizRepositoryVO implements Serializable {
     private Long productId;
     @Schema(description = "产品名称")
     private String productName;
+    @Schema(description = "产品单价")
+    private BigDecimal productUnitPrice;
     @Schema(description = "当前库存数量")
     private Integer currentQuantity;
     @Schema(description = "累计订购数量")
