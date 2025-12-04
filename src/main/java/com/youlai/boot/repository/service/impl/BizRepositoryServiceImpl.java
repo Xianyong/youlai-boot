@@ -1,5 +1,6 @@
 package com.youlai.boot.repository.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.youlai.boot.system.model.vo.DeptVO;
 import com.youlai.boot.system.service.DeptService;
 import lombok.RequiredArgsConstructor;
@@ -102,6 +103,24 @@ public class BizRepositoryServiceImpl extends ServiceImpl<BizRepositoryMapper, B
                 .map(Long::parseLong)
                 .toList();
         return this.removeByIds(idList);
+    }
+
+    @Override
+    public BizRepositoryForm getByProductAndDept(Long productId, Long departmentId) {
+        // 使用 QueryWrapper 构造查询条件
+        LambdaQueryWrapper<BizRepository> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(BizRepository::getProductId, productId)
+                    .eq(BizRepository::getDepartmentId, departmentId);
+
+        // 执行查询
+        BizRepository repository = this.getOne(queryWrapper);
+
+        // 转换为 VO 对象返回
+        if (repository != null) {
+            return bizRepositoryConverter.toForm(repository);
+        }
+
+        return null;
     }
 
 }

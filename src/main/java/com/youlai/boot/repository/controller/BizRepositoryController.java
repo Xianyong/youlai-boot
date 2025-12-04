@@ -22,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ import java.util.List;
  */
 @Tag(name = "13. 商品选购接口")
 @RestController
-@RequestMapping("/api/v1/biz-repository")
+@RequestMapping("/api/v1/repository")
 @RequiredArgsConstructor
 public class BizRepositoryController  {
 
@@ -66,6 +67,35 @@ public class BizRepositoryController  {
         }
     }
 
+    @Operation(summary = "商品补货")
+    @PostMapping("/restock")
+    @PreAuthorize("@ss.hasPerm('products:biz-products:fillrepo')")
+    public Result<Void> restock(@RequestBody @Valid BizRepositoryForm formData) {
+        // 根据 productId 和 departmentId 查询是否存在记录
+        BizRepositoryForm existingRecord = bizRepositoryService.getByProductAndDept(
+            formData.getProductId(),
+            formData.getDepartmentId()
+        );
+
+        boolean result;
+        if (existingRecord != null) {
+            // 如果存在，执行更新操作
+            existingRecord.setCurrentQuantity(formData.getCurrentQuantity()+existingRecord.getCurrentQuantity());
+            existingRecord.setOrderQuantityTotal(existingRecord.getOrderQuantityTotal() + formData.getCurrentQuantity());
+            existingRecord.setUpdateBy(SecurityUtils.getUserId());
+            existingRecord.setUpdateTime(LocalDateTime.now());
+            result = bizRepositoryService.updateBizRepository(existingRecord.getId(), existingRecord);
+        } else {
+            // 如果不存在，执行插入操作
+            formData.setOrderQuantityTotal(formData.getCurrentQuantity());
+            formData.setCreateBy(SecurityUtils.getUserId());
+            result = bizRepositoryService.saveBizRepository(formData);
+        }
+
+        return Result.judge(result);
+    }
+
+
     @Operation(summary = "新增商品选购")
     @PostMapping
     @PreAuthorize("@ss.hasPerm('repository:biz-repository:add')")
@@ -91,6 +121,8 @@ public class BizRepositoryController  {
             @Parameter(description = "商品选购ID") @PathVariable Long id,
             @RequestBody @Validated BizRepositoryForm formData
     ) {
+        formData.setUpdateBy(SecurityUtils.getUserId());
+        formData.setUpdateTime(LocalDateTime.now());
         boolean result = bizRepositoryService.updateBizRepository(id, formData);
         return Result.judge(result);
     }

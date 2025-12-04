@@ -29,6 +29,14 @@ public class BizOrdersVO implements Serializable {
     private Integer repoId;
     @Schema(description = "用户ID，外键关联用户表")
     private Integer userId;
+    @Schema(description = "用户名称")
+    private String userName;
+
+    @Schema(description = "部门名称")
+    private  String departmentName;
+
+    @Schema(description = "商品名称")
+    private String productName;
     @Schema(description = "购买数量")
     private Integer quantity;
     @Schema(description = "商品单价（下单时价格）")

@@ -55,4 +55,9 @@ public interface BizRepositoryService extends IService<BizRepository> {
      */
     boolean deleteBizRepositorys(String ids);
 
+    /**
+     * 根据产品ID和部门ID获取记录
+     */
+    BizRepositoryForm getByProductAndDept(Long productId, Long departmentId);
+
 }

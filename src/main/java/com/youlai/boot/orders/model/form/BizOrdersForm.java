@@ -27,12 +27,12 @@ public class BizOrdersForm implements Serializable {
     @Schema(description = "订单唯一标识符")
     private Integer id;
 
-    @Schema(description = "站点ID，外键关联部门表")
-    @NotNull(message = "站点ID，外键关联部门表不能为空")
+    @Schema(description = "库存ID，外键关联库存表")
+//    @NotNull(message = "库存ID，外键关联库存表不能为空")
     private Integer repoId;
 
     @Schema(description = "用户ID，外键关联用户表")
-    @NotNull(message = "用户ID，外键关联用户表不能为空")
+//    @NotNull(message = "用户ID，外键关联用户表不能为空")
     private Integer userId;
 
     @Schema(description = "购买数量")
@@ -53,11 +53,11 @@ public class BizOrdersForm implements Serializable {
     private LocalDateTime orderDate;
 
     @Schema(description = "记录创建人（用户ID）")
-    @NotNull(message = "记录创建人（用户ID）不能为空")
+//    @NotNull(message = "记录创建人（用户ID）不能为空")
     private Integer createBy;
 
     @Schema(description = "记录创建时间")
-    @NotNull(message = "记录创建时间不能为空")
+//    @NotNull(message = "记录创建时间不能为空")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
@@ -65,7 +65,7 @@ public class BizOrdersForm implements Serializable {
     private Integer updateBy;
 
     @Schema(description = "记录最后修改时间")
-    @NotNull(message = "记录最后修改时间不能为空")
+//    @NotNull(message = "记录最后修改时间不能为空")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 

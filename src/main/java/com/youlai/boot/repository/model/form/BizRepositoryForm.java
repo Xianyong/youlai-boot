@@ -24,15 +24,15 @@ public class BizRepositoryForm implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "关系记录唯一标识符")
-    @NotNull(message = "关系记录唯一标识符不能为空")
+//    @NotNull(message = "关系记录唯一标识符不能为空")
     private Long id;
 
-    @Schema(description = "部门ID，外键关联部门表")
-    @NotNull(message = "部门ID，外键关联部门表不能为空")
+    @Schema(description = "站点ID，外键关联站点表")
+//    @NotNull(message = "站点ID，外键关联站点表不能为空")
     private Long departmentId;
 
     @Schema(description = "产品ID，外键关联产品表")
-    @NotNull(message = "产品ID，外键关联产品表不能为空")
+//    @NotNull(message = "产品ID，外键关联产品表不能为空")
     private Long productId;
 
     @Schema(description = "当前库存数量")
@@ -47,12 +47,12 @@ public class BizRepositoryForm implements Serializable {
     private LocalDateTime orderDateLatest;
 
     @Schema(description = "记录创建时间")
-    @NotNull(message = "记录创建时间不能为空")
+//    @NotNull(message = "记录创建时间不能为空")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @Schema(description = "记录最后更新时间")
-    @NotNull(message = "记录最后更新时间不能为空")
+//    @NotNull(message = "记录最后更新时间不能为空")
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 

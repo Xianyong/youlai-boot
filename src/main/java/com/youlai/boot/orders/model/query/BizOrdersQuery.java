@@ -18,5 +18,12 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class BizOrdersQuery extends BasePageQuery {
+    /**
+     * 关联用户ID
+     */
+    @Schema(description = "关联用户ID")
+    private Long userId;
 
+    @Schema(description = "关联站点ID")
+    private List<Long> deptIds;
 }

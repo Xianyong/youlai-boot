@@ -33,9 +33,7 @@ import java.io.Console;
 @RequestMapping("/api/v1/biz-products")
 @RequiredArgsConstructor
 public class BizProductsController  {
-
     private final BizProductsService bizProductsService;
-    private final BizRepositoryService bizRepositoryService;
 
     @Operation(summary = "商品供应分页列表")
     @GetMapping("/page")
@@ -44,25 +42,6 @@ public class BizProductsController  {
 //        println("queryParams = " + queryParams);
         IPage<BizProductsVO> result = bizProductsService.getBizProductsPage(queryParams);
         return PageResult.success(result);
-    }
-
-    @Operation(summary = "商品补货")
-    @PostMapping("/restock")
-    @PreAuthorize("@ss.hasPerm('products:biz-products:fillrepo')")
-    public Result<Void> restock(
-        @Parameter(description = "部门ID") @RequestParam(required = true) Long deptId,
-        @Parameter(description = "产品ID") @RequestParam(required = true) Long productId,
-        @Parameter(description = "补货数量") @RequestParam(required = true) Integer quantity
-    ) {
-        BizRepositoryForm formData = new BizRepositoryForm();
-        formData.setProductId(productId);
-        formData.setDepartmentId(deptId);
-        formData.setCurrentQuantity(quantity);
-        formData.setOrderQuantityTotal(quantity);
-//        formData.setCreateBy(UserId);
-        boolean result = bizRepositoryService.saveBizRepository(formData);
-//        boolean result = bizProductsService.restock(deptId, productId, quantity);
-        return Result.judge(result);
     }
 
     @Operation(summary = "新增商品供应")

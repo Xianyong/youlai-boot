@@ -5,21 +5,36 @@
     <!-- 获取订单分页列表 -->
     <select id="getBizOrdersPage" resultType="com.youlai.boot.orders.model.vo.BizOrdersVO">
         SELECT
-                id,
-                repo_id,
-                user_id,
-                quantity,
-                unit_price,
-                total_amount,
-                order_date,
-                create_by,
-                create_time,
-                update_by,
-                update_time
+            biz_orders.id,
+            biz_orders.repo_id,
+            biz_orders.user_id,
+            user.username AS user_name,
+            dep.name AS department_name,
+            pro.name AS product_name,
+            biz_orders.quantity,
+            biz_orders.unit_price,
+            biz_orders.total_amount,
+            biz_orders.order_date,
+            biz_orders.create_by,
+            biz_orders.create_time,
+            biz_orders.update_by,
+            biz_orders.update_time
         FROM
             biz_orders
-        <where>
-        </where>
+        left join biz_repository rep on rep.id = biz_orders.repo_id
+        left join sys_dept dep on rep.department_id = dep.id
+        left join biz_products pro on rep.product_id = pro.id
+        left join sys_user user on biz_orders.user_id = user.id
+        <if test='queryParams.deptIds != null'>
+            WHERE rep.department_id IN
+            <foreach item="item" index="index" collection="queryParams.deptIds"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test='queryParams.userId != null and queryParams.userId neq ""'>
+            WHERE biz_orders.user_id = #{queryParams.userId}
+        </if>
     </select>
 
 </mapper>
