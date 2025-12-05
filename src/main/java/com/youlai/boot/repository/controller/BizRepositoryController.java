@@ -47,7 +47,7 @@ public class BizRepositoryController  {
     public PageResult<BizRepositoryVO> getBizRepositoryPage(BizRepositoryQuery queryParams ) {
 
         DeptQuery dptqueryParams = new DeptQuery();
-        queryParams.setStatus(1);
+        dptqueryParams.setStatus(1);
         List<DeptVO> list = deptService.getMyDeptList(dptqueryParams);
         List<Long> deptIds = new ArrayList<>();
         for(DeptVO dpt : list){
