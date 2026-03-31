@@ -1,11 +1,5 @@
 <div align="center">
 
-## 🎉 正在参加 Gitee 2025 最受欢迎开源软件评选
-
-<a href="https://gitee.com/activity/2025opensource?ident=I6VXEH" target="_blank">
-  <img src="https://img.shields.io/badge/🗳️_立即投票-支持本项目-ff6b35?style=for-the-badge&logo=gitee" alt="投票" height="50"/>
-</a>
-
 <p>
   <strong>一票就够，不用每天投 🙏 您的支持是我们持续更新的最大动力！</strong>
 </p>
